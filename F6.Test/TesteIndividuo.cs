@@ -20,15 +20,8 @@ namespace F6.Test
         {
             var individuo = this.ObtemIndividuoExemplo();
 
-            Assert.Equal(-92.11420, individuo.X());
-            Assert.Equal(8.24868, individuo.Y());
-        }
-
-        [Fact]
-        public void TestaFitness()
-        {
-            var individuo = this.ObtemIndividuoExemplo();
-            Assert.Equal(0.50507, individuo.Aptidao());
+            Assert.Equal(-92.114208, individuo.X());
+            Assert.Equal(8.248688, individuo.Y());
         }
 
         [Theory]

@@ -9,11 +9,11 @@ namespace F6.Helpers
 {
     public static class Mutacao
     {
-        public static void Muta(Individuo individuo, double taxaMutacao)
+        public static void Muta(Individuo individuo, int taxaMutacao)
         {
             for(int i = 0; i < individuo.Genes.Length; i++ )
             {
-                var random = (double) Constantes.Randomico.ProximoInt(101) / 100.0;
+                var random =  Constantes.Randomico.ProximoInt(101);
                 if (random <= taxaMutacao){
 
                     if (individuo.Genes[i] == '1')
