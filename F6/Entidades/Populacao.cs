@@ -31,7 +31,6 @@ namespace F6.Entidades
         /// </summary>
         private void ClonaMutaPopulacao()
         {
-
             for (int p = 0; p < this.TamanhoOriginal; p++)
             {
                 var pai = this.Individuos.ElementAt(p);
@@ -90,7 +89,6 @@ namespace F6.Entidades
             }
 
             return this.Individuos.ElementAt(selecionadoInicial);
-
         }
 
         public void EstrategiaPE()
@@ -99,7 +97,7 @@ namespace F6.Entidades
             this.CortaPopulacao();
         }
 
-        public void EstrategiaGA()
+        public void EstrategiaGA1()
         {
             var pai = this.SelecionaProporcionalAptidao();
             var mae = this.SelecionaProporcionalAptidao();
@@ -123,8 +121,13 @@ namespace F6.Entidades
             var pai = this.SelecionaProporcionalAptidao();
             var mae = this.SelecionaProporcionalAptidao();
 
+            while(pai.Id == mae.Id)
+            {
+                mae = this.SelecionaProporcionalAptidao();
+            }
+
             /// Crossover
-            var filhos = Recombinacao.UmPonto(pai, mae);
+            var filhos = Recombinacao.DoisPontos(pai, mae);
 
             /// Mutacao
             foreach (var f in filhos)
@@ -132,20 +135,9 @@ namespace F6.Entidades
                 Mutacao.Muta(f, Constantes.TaxaMutacao);
             }
 
-            filhos.Add(pai);
-            filhos.Add(mae);
+            this.Individuos.AddRange(filhos);
 
-            this.Individuos.Remove(pai);
-            this.Individuos.Remove(mae);
-
-            if (pai.Id == mae.Id)
-            {
-                this.Individuos.AddRange(filhos.OrderByDescending(x => x.Aptidao()).Take(1));
-            }
-            else
-            {
-                this.Individuos.AddRange(filhos.OrderByDescending(x => x.Aptidao()).Take(2));
-            }
+            this.CortaPopulacao();
         }
     }
 }

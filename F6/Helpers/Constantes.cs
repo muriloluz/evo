@@ -14,7 +14,7 @@ namespace F6.Helpers
 
         public static int LimiteInferior = -100;
 
-        public static double TaxaMutacao = 0.05;
+        public static double TaxaMutacao = 0.8;
 
         public static Randomico Randomico = new Randomico();
     }

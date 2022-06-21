@@ -18,13 +18,15 @@ namespace F6
     {
         private Populacao populacao;
         private Individuo melhorIndividuo;
-        private const int tamanhoPopulacao = 100;
-        private const int qntGeracoes = 1000;
+        private const int tamanhoPopulacao = 500;
+        private const int qntGeracoes = 100;
 
         public EVO()
         {
             InitializeComponent();
             grafico.Refresh();
+            grafico.Plot.SetInnerViewLimits(-100, 100, -100, 100);
+            grafico.Plot.SetOuterViewLimits(-100, 100, -100, 100);
             graficoAptidao.Refresh();
             populacao = new Populacao(tamanhoPopulacao);
 
@@ -64,7 +66,7 @@ namespace F6
                 lblx.Text = "X: " + melhorIndividuo.X();
                 lblY.Text = "Y: " + melhorIndividuo.Y();
 
-                populacao.EstrategiaGA();
+                populacao.EstrategiaGA1();
 
             }
 

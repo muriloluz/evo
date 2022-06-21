@@ -41,16 +41,16 @@
             // 
             // grafico
             // 
-            this.grafico.Location = new System.Drawing.Point(774, 52);
+            this.grafico.Location = new System.Drawing.Point(857, 52);
             this.grafico.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.grafico.Name = "grafico";
-            this.grafico.Size = new System.Drawing.Size(1010, 780);
+            this.grafico.Size = new System.Drawing.Size(1414, 952);
             this.grafico.TabIndex = 0;
             // 
             // iniciar
             // 
             this.iniciar.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.iniciar.Location = new System.Drawing.Point(1368, 837);
+            this.iniciar.Location = new System.Drawing.Point(1932, 1033);
             this.iniciar.Name = "iniciar";
             this.iniciar.Size = new System.Drawing.Size(140, 54);
             this.iniciar.TabIndex = 1;
@@ -62,7 +62,7 @@
             // 
             this.lblPopulacao.AutoSize = true;
             this.lblPopulacao.Font = new System.Drawing.Font("Roboto", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblPopulacao.Location = new System.Drawing.Point(819, 10);
+            this.lblPopulacao.Location = new System.Drawing.Point(906, 10);
             this.lblPopulacao.Name = "lblPopulacao";
             this.lblPopulacao.Size = new System.Drawing.Size(166, 37);
             this.lblPopulacao.TabIndex = 2;
@@ -73,7 +73,7 @@
             this.graficoAptidao.Location = new System.Drawing.Point(-18, 52);
             this.graficoAptidao.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.graficoAptidao.Name = "graficoAptidao";
-            this.graficoAptidao.Size = new System.Drawing.Size(828, 780);
+            this.graficoAptidao.Size = new System.Drawing.Size(863, 952);
             this.graficoAptidao.TabIndex = 3;
             // 
             // aptidao
@@ -90,7 +90,7 @@
             // 
             this.lblGeracoes.AutoSize = true;
             this.lblGeracoes.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblGeracoes.Location = new System.Drawing.Point(27, 837);
+            this.lblGeracoes.Location = new System.Drawing.Point(27, 1033);
             this.lblGeracoes.Name = "lblGeracoes";
             this.lblGeracoes.Size = new System.Drawing.Size(121, 29);
             this.lblGeracoes.TabIndex = 5;
@@ -100,7 +100,7 @@
             // 
             this.lblx.AutoSize = true;
             this.lblx.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblx.Location = new System.Drawing.Point(209, 837);
+            this.lblx.Location = new System.Drawing.Point(228, 1033);
             this.lblx.Name = "lblx";
             this.lblx.Size = new System.Drawing.Size(34, 29);
             this.lblx.TabIndex = 6;
@@ -110,7 +110,7 @@
             // 
             this.lblY.AutoSize = true;
             this.lblY.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblY.Location = new System.Drawing.Point(407, 837);
+            this.lblY.Location = new System.Drawing.Point(433, 1033);
             this.lblY.Name = "lblY";
             this.lblY.Size = new System.Drawing.Size(33, 29);
             this.lblY.TabIndex = 8;
@@ -119,7 +119,7 @@
             // btnNovo
             // 
             this.btnNovo.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnNovo.Location = new System.Drawing.Point(1564, 837);
+            this.btnNovo.Location = new System.Drawing.Point(2107, 1037);
             this.btnNovo.Name = "btnNovo";
             this.btnNovo.Size = new System.Drawing.Size(148, 50);
             this.btnNovo.TabIndex = 9;
@@ -131,7 +131,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1780, 907);
+            this.ClientSize = new System.Drawing.Size(2313, 1099);
             this.Controls.Add(this.btnNovo);
             this.Controls.Add(this.lblY);
             this.Controls.Add(this.lblx);

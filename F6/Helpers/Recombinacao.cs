@@ -19,12 +19,14 @@ namespace F6.Helpers
             for(int i = 0; i <= ponto; i++)
             {
                 filho1.Genes[i] = pai.Genes[i]; 
+
                 filho2.Genes[i] = mae.Genes[i];
             }
 
-            for(int j = pai.Genes.Length - 1; j > ponto; j--)
+            for(int j = ponto + 1; j < pai.Genes.Length; j++)
             {
                 filho1.Genes[j] = mae.Genes[j];
+
                 filho2.Genes[j] = pai.Genes[j];
             }
 
@@ -34,6 +36,59 @@ namespace F6.Helpers
             retorno.Add(filho2);
 
             return retorno;
+        }
+
+        public static List<Individuo> DoisPontos(Individuo pai, Individuo mae)
+        {
+            var pontoUm = Constantes.Randomico.ProximoInt(pai.Genes.Length);
+            var pontoDois = Constantes.Randomico.ProximoInt(pai.Genes.Length);
+             
+            var pontoMenor = (pontoUm < pontoDois) ? pontoUm : pontoDois;
+            var pontoMaior = (pontoUm >= pontoDois) ? pontoUm : pontoDois;
+
+            var filho1 = new Individuo();
+            var filho2 = new Individuo();
+
+            for (int i = 0; i <= pontoMenor; i++)
+            {
+                filho1.Genes[i] = pai.Genes[i];
+                filho2.Genes[i] = mae.Genes[i];
+            }
+
+            for (int j = pontoMenor + 1 ; j <= pontoMaior; j++)
+            {
+                filho1.Genes[j] = mae.Genes[j];
+                filho2.Genes[j] = pai.Genes[j];
+            }
+
+            for (int w = pontoMaior + 1; w < pai.Genes.Length; w++)
+            {
+                filho1.Genes[w] = pai.Genes[w];
+                filho2.Genes[w] = mae.Genes[w];
+            }
+
+            var retorno = new List<Individuo>();
+
+            retorno.Add(filho1);
+            retorno.Add(filho2);
+
+            return retorno;
+        }
+
+        public static Individuo Clona(Individuo pai)
+        {
+            var filho = new Individuo();
+
+            for (int i = 0; i < pai.Genes.Length; i++)
+            {
+                filho.Genes[i] = pai.Genes[i];
+            }
+
+            var retorno = new List<Individuo>();
+
+            retorno.Add(filho);
+
+            return filho;
         }
     }
 }
