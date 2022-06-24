@@ -61,5 +61,14 @@ namespace F6.Entidades
         {
             this.Individuos = this.Individuos.OrderByDescending(x => x.Aptidao()).Take(this.TamanhoOriginal).ToList();
         }
+
+        public List<DataSourceIndividuo> ObtemDataSourcePopulacao()
+        {
+            var retorno = new List<DataSourceIndividuo>();
+
+            this.Individuos.ForEach(p => retorno.Add(p.ConvertDatSource()));
+
+            return retorno;
+        }
     }
 }

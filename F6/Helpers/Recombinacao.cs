@@ -58,7 +58,8 @@ namespace F6.Helpers
             Individuo filho1;
             Individuo filho2;
 
-            if (random <= taxaRecombinacao)
+
+            if (random <= taxaRecombinacao /*&& HammingDistance(pai,mae) >= 8*/) 
             {
                 var pontoUm = Constantes.Randomico.ProximoInt(pai.Genes.Length);
                 var pontoDois = Constantes.Randomico.ProximoInt(pai.Genes.Length);
@@ -113,5 +114,19 @@ namespace F6.Helpers
             return filho;
         }
 
+        private static int HammingDistance(Individuo pai, Individuo mae)
+        {
+            var distancia = 0;
+
+            for(int i = 0; i < pai.Genes.Length; i++)
+            {
+                if(pai.Genes[i] != mae.Genes[i])
+                {
+                    distancia++;
+                }
+            }
+
+            return distancia;
+        }
     }
 }

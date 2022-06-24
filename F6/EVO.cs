@@ -20,17 +20,28 @@ namespace F6
 
         private EstrategiaPE estrategiaPE;
         private const int tamanhoPopulacaoPE = 500;
-        private const int qntGeracoesPE = 100;
+        private const int qntGeracoesPE = 200;
 
         private EstrategiaAG estrategiaAG;
         private const int tamanhoPopulacaoAG = 100;
-        private const int qntGeracoesAG = 1000;
+        private const int qntGeracoesAG = 500;
+        private const int qntExecucoes = 10;
+
+        private bool plotarGraficos = false;
 
         private Individuo melhorIndividuo;
+        private List<double> melhoresAptidoes;
+        private List<DataSourceExecucoes> dataSourceExecucoes;
+
+        private bool Parar = false;
 
         public EVO()
         {
             InitializeComponent();
+
+            melhoresAptidoes = new List<double>();
+
+            this.dataSourceExecucoes = new List<DataSourceExecucoes>();
 
             grafico.Refresh();
             grafico.Plot.SetInnerViewLimits(-100, 100, -100, 100);
@@ -84,22 +95,32 @@ namespace F6
 
             foreach (var item in estrategiaAG.Pais)
             {
-                grafico.Plot.AddPoint(item.X(), item.Y(), Color.Blue);
+                if (plotarGraficos)
+                {
+                    grafico.Plot.AddPoint(item.X(), item.Y(), Color.Blue);
+                }
+
                 listaAptidao.Add(item.Aptidao());
             }
 
-            foreach (var item in estrategiaAG.FilhosParaGrafico)
+            if (plotarGraficos)
             {
-                grafico.Plot.AddPoint(item.X(), item.Y(), Color.Red);
+                foreach (var item in estrategiaAG.FilhosParaGrafico)
+                {
+
+                    grafico.Plot.AddPoint(item.X(), item.Y(), Color.Red);
+                }
             }
+
+            grafico.Plot.AddCrosshair(0, 0);
 
             estrategiaAG.FilhosParaGrafico.Clear();
 
             var melhorAptidao = listaAptidao.Max();
 
-            graficoAptidao.Plot.AddVerticalLine(listaAptidao.Max());
-
             melhorIndividuo = estrategiaAG.Pais.Where(x => x.Aptidao() == melhorAptidao).First();
+
+            this.melhoresAptidoes.Add(melhorAptidao);
 
             aptidao.Text = "Melhor aptidão: " + melhorIndividuo.Aptidao();
         }
@@ -110,14 +131,21 @@ namespace F6
 
             foreach (var item in estrategiaPE.Individuos)
             {
-                grafico.Plot.AddPoint(item.X(), item.Y());
+                if (plotarGraficos)
+                {
+                    grafico.Plot.AddPoint(item.X(), item.Y(), Color.Blue);
+                }
+
                 listaAptidao.Add(item.Aptidao());
             }
 
+            grafico.Plot.AddCrosshair(0, 0);
+
             var melhorAptidao = listaAptidao.Max();
-            graficoAptidao.Plot.AddVerticalLine(listaAptidao.Max());
 
             melhorIndividuo = estrategiaPE.Individuos.Where(x => x.Aptidao() == melhorAptidao).First();
+
+            this.melhoresAptidoes.Add(melhorAptidao);
 
             aptidao.Text = "Melhor aptidão: " + melhorIndividuo.Aptidao();
         }
@@ -128,7 +156,7 @@ namespace F6
 
             if (this.PE())
             {
-               this.IniciarPE();
+                this.IniciarPE();
             }
 
             if (this.AG())
@@ -141,40 +169,83 @@ namespace F6
 
         private void IniciarPE()
         {
-            for (int i = 0; i <= qntGeracoesPE; i++)
+            for (int j = 1; j <= qntExecucoes; j++)
             {
-                grafico.Plot.Clear();
-                AtualizarGraficos();
-                grafico.Refresh();
-                graficoAptidao.Refresh();
 
-                lblPopulacao.Text = "Tamanho População: " + estrategiaPE.Individuos.Count;
-                lblGeracoes.Text = "Geração: " + i;
-                lblx.Text = "X: " + melhorIndividuo.X();
-                lblY.Text = "Y: " + melhorIndividuo.Y();
+                for (int i = 0; i <= qntGeracoesPE; i++)
+                {
+                    grafico.Plot.Clear();
+                    AtualizarGraficos();
+                    grafico.Refresh();
+                    graficoAptidao.Refresh();
 
-                estrategiaPE.Iniciar();
+                    lblPopulacao.Text = "Tamanho População: " + estrategiaPE.Individuos.Count;
+                    lblGeracoes.Text = "Geração: " + i;
+                    lblx.Text = "X: " + melhorIndividuo.X();
+                    lblY.Text = "Y: " + melhorIndividuo.Y();
 
+                    estrategiaPE.Iniciar();
+
+                    if (plotarGraficos)
+                    {
+                        graficoAptidao.Plot.Clear();
+                        graficoAptidao.Plot.AddBar(this.melhoresAptidoes.ToArray(), color: Color.CadetBlue);
+                        this.dataGridView1.DataSource = estrategiaPE.ObtemDataSourcePopulacao().OrderByDescending(x => x.Aptidao).ToList();
+                    }
+
+                    if (this.Parar)
+                    {
+                        break;
+                    }
+                }
+
+
+                this.dataSourceExecucoes.Add(new DataSourceExecucoes(j, this.melhorIndividuo));
+                this.dataGridView2.DataSource = this.dataSourceExecucoes.ToList();
+                this.PreparanovaExecucao();
             }
         }
 
         private void IniciarAG()
         {
-            for(int i = 0; i <= qntGeracoesAG; i++)
+            for (int j = 1; j <= qntExecucoes; j++)
             {
-                grafico.Plot.Clear();
-                AtualizarGraficos();
-                grafico.Refresh();
-                graficoAptidao.Refresh();
+                for (int i = 1; i <= qntGeracoesAG; i++)
+                {
+                    grafico.Plot.Clear();
+                    AtualizarGraficos();
+                    grafico.Refresh();
+
+                    graficoAptidao.Refresh();
 
 
-                lblPopulacao.Text = "Tamanho População Pais: " + estrategiaAG.Pais.Count;
-                lblGeracoes.Text = "Geração: " + i;
+                    lblPopulacao.Text = "Tamanho População Pais: " + estrategiaAG.Pais.Count;
+                    lblGeracoes.Text = "Geração: " + i;
 
-                lblx.Text = "X: " + melhorIndividuo.X();
-                lblY.Text = "Y: " + melhorIndividuo.Y();
+                    lblx.Text = "X: " + melhorIndividuo.X();
+                    lblY.Text = "Y: " + melhorIndividuo.Y();
 
-                estrategiaAG.Iniciar();
+                    estrategiaAG.Iniciar();
+
+                    if (plotarGraficos)
+                    {
+                        graficoAptidao.Plot.Clear();
+                        graficoAptidao.Plot.AddBar(this.melhoresAptidoes.ToArray(), color: Color.CadetBlue);
+                        this.dataGridView1.DataSource = estrategiaAG.ObtemDataSourcePais().OrderByDescending(x => x.Aptidao).ToList();
+                    }
+
+                    if (this.Parar)
+                    {
+                        break;
+                    }
+                }
+
+
+                this.dataSourceExecucoes.Add(new DataSourceExecucoes(j, this.melhorIndividuo));
+                this.dataGridView2.DataSource = this.dataSourceExecucoes.ToList();
+
+
+                this.PreparanovaExecucao();
             }
         }
 
@@ -190,6 +261,11 @@ namespace F6
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
+            PreparanovaExecucao();
+        }
+
+        private void PreparanovaExecucao()
+        {
             estrategiaPE = new EstrategiaPE(tamanhoPopulacaoPE);
             estrategiaAG = new EstrategiaAG(tamanhoPopulacaoAG);
 
@@ -198,7 +274,12 @@ namespace F6
             graficoAptidao.Plot.Clear();
             graficoAptidao.Refresh();
 
+            this.melhoresAptidoes.Clear();
+            this.melhorIndividuo = null;
+
             iniciar.Enabled = true;
+
+            this.Parar = false;
 
             lblPopulacao.Text = "Tamanho População: ";
             lblGeracoes.Text = "Geração: ";
@@ -219,10 +300,16 @@ namespace F6
                 lblPopulacao.Text = "Tamanho População: " + estrategiaPE.Individuos.Count;
             }
 
-            if (this.AG()){
+            if (this.AG())
+            {
 
                 lblPopulacao.Text = "Tamanho População: " + estrategiaAG.Pais.Count;
             }
+        }
+
+        private void btnParar_Click(object sender, EventArgs e)
+        {
+            this.Parar = true;
         }
     }
 }

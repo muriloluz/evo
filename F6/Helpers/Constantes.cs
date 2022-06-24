@@ -10,14 +10,16 @@ namespace F6.Helpers
     {
         public static double Multiplicador =  200 / (Math.Pow(2, 22) - 1);
 
-        public static int CasasDecimais = 10;
+        public static int CasasDecimais = 5;
 
         public static int LimiteInferior = -100;
 
-        public static int TaxaMutacao = 8;
+        public static int TaxaMutacao = 9;
 
-        public static int TaxaRecombinacao = 70;
+        public static int TaxaRecombinacao = 65;
 
         public static Randomico Randomico = new Randomico();
+
+        public static int SobreviventesElitismo = 15;
     }
 }

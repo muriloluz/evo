@@ -36,19 +36,24 @@ namespace F6.Entidades
 
         public void Iniciar()
         {
-            //// Mantendo filhos da geracao anterior para comparacao no grafico
+            //// Mantendo filhos da geracao anterior para comparacao no grafico, é limpada pelo gráfico e não afeta o algoritmo.
             this.FilhosParaGrafico = this.Filhos.ToList();
             this.Filhos.Clear();
 
             for (int i = 0; i < this.TamanhoOriginal / 2; i++)
             {
+                //var listaPais = this.SelecionaIndividuoMaiorFitness(2);
+                //var pai = listaPais.ElementAt(0);
+                //var mae = listaPais.ElementAt(1);
+
                 var pai = this.SelecionaProporcionalAptidao();
                 var mae = this.SelecionaProporcionalAptidao();
 
-                while (pai.Id == mae.Id)
-                {
-                    mae = this.SelecionaProporcionalAptidao();
-                }
+                //var pai = this.SelecionaProporcionalRank();
+                //var mae = this.SelecionaProporcionalRank();
+
+
+                /// TODO: Considerar não repetir individuos
 
                 /// Crossover
                 var filhos = Recombinacao.DoisPontos(pai, mae, Constantes.TaxaRecombinacao);
@@ -62,7 +67,16 @@ namespace F6.Entidades
                 this.Filhos.AddRange(filhos);
             }
 
-            this.SelecionaSobreviventesElitismo();
+            this.SelecionaSobreviventesElitismo(Constantes.SobreviventesElitismo);
+        }
+
+        public List<DataSourceIndividuo> ObtemDataSourcePais()
+        {
+            var retorno = new List<DataSourceIndividuo>();
+
+            this.Pais.ForEach(p => retorno.Add(p.ConvertDatSource()));
+
+            return retorno;
         }
 
         private void SelecionaSobreviventesElitismo()
@@ -78,6 +92,40 @@ namespace F6.Entidades
             this.Pais.Add(melhorPai);
         }
 
+        private void SelecionaSobreviventesElitismo(int n)
+        {
+            var listaMelhoresPais = this.Pais.OrderByDescending(x => x.Aptidao()).Take(n).ToList();
+
+            var listaFilhosCandidatos = new List<int>();
+
+            while(listaFilhosCandidatos.Count < n)
+            {
+                var candidato = Constantes.Randomico.ProximoInt(this.TamanhoOriginal);
+
+                if (listaFilhosCandidatos.Contains(candidato))
+                {
+                    continue;
+                }
+                else
+                {
+                    listaFilhosCandidatos.Add(candidato);
+                }
+            }
+
+            foreach(var indice in listaFilhosCandidatos.OrderByDescending(x=>x))
+            {
+                this.Filhos.RemoveAt(indice);
+            }
+
+            this.Pais = this.Filhos.ToList();
+            this.Pais.AddRange(listaMelhoresPais);
+        }
+
+        private void SelecionaSobriventesTodosFilhos()
+        {
+            this.Pais = this.Filhos.ToList();
+        }
+
         private double SomaTotalAptidaoPais()
         {
             double total = this.Pais.Select(x => x.Aptidao()).Sum();
@@ -88,15 +136,17 @@ namespace F6.Entidades
         private Individuo SelecionaProporcionalAptidao()
         {
             var aptidaoTotal = this.SomaTotalAptidaoPais();
-            var normalizaAptidao = aptidaoTotal * 100000;
-            var randomico = (double)Constantes.Randomico.ProximoInt((int)normalizaAptidao) / 100000.0;
+
+            var normalizaAptidao = aptidaoTotal * Math.Pow(10, Constantes.CasasDecimais - 1);
+
+            var randomico = (double) Constantes.Randomico.ProximoInt((int)normalizaAptidao) / (double)Math.Pow(10, Constantes.CasasDecimais - 1);
             var selecionadoInicial = 0;
             var aptidaoAcumulada = 0.0;
 
             for (int i = 0; i < this.TamanhoOriginal; i++)
             {
                 aptidaoAcumulada += this.Pais.ElementAt(i).Aptidao();
-                if (randomico > aptidaoAcumulada)
+                if (aptidaoAcumulada < randomico )
                 {
                     continue;
                 }
@@ -108,6 +158,49 @@ namespace F6.Entidades
             }
 
             return this.Pais.ElementAt(selecionadoInicial);
+        }
+
+        private Individuo SelecionaProporcionalRank()
+        {
+            Dictionary<int, Individuo> rank = new Dictionary<int, Individuo>();
+            var listaOrdenadaCrescente = this.Pais.OrderBy(x => x.Aptidao()).ToList();
+            Individuo selecionado = null;
+
+            for (int i = 0; i < this.TamanhoOriginal; i++)
+            {   
+                rank.Add(i + 1, listaOrdenadaCrescente.ElementAt(i));                 
+            }
+
+            var somaRank = rank.Select(x => x.Key).Sum();
+
+            var randomico = Constantes.Randomico.ProximoInt(somaRank + 1);
+
+            var selecionadoInicial = 0;
+            var rankAcumulado = 0;
+            var rankAtual = 0;
+
+            for (int i = 0; i < rank.Keys.Count; i++)
+            {
+                rankAtual = rank.Keys.ElementAt(i);
+                 rankAcumulado += rankAtual;
+
+                if (rankAcumulado < randomico)
+                {
+                    continue;
+                }
+                else
+                {
+                    selecionado = rank[rankAtual] ;
+                    break;
+                }
+            }
+
+            return selecionado;
+        }
+
+        private List<Individuo> SelecionaIndividuoMaiorFitness(int quantidade)
+        {
+            return this.Pais.OrderByDescending(x => x.Aptidao()).Take(quantidade).ToList();
         }
     }
 }

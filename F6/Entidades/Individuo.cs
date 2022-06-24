@@ -51,5 +51,10 @@ namespace F6.Entidades
                 this.Genes[i] = Constantes.Randomico.RandomZeroOuUm();
             }
         }
+
+        public DataSourceIndividuo ConvertDatSource()
+        {
+            return new DataSourceIndividuo() { Id = this.Id, Aptidao = this.Aptidao(), X = this.X(), Y = this.Y() };
+        }
     }
 }
