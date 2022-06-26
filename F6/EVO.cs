@@ -25,9 +25,9 @@ namespace F6
         private EstrategiaAG estrategiaAG;
         private const int tamanhoPopulacaoAG = 100;
         private const int qntGeracoesAG = 2500;
-        private const int qntExecucoes = 10;
+        private const int qntExecucoes = 1;
 
-        private bool plotarGraficos = false;
+        private bool plotarGraficos = true;
 
         private Individuo melhorIndividuo;
         private List<double> melhoresAptidoes;
