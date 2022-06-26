@@ -52,11 +52,14 @@ namespace F6.Entidades
                 //var pai = this.SelecionaProporcionalRank();
                 //var mae = this.SelecionaProporcionalRank();
 
+                //var pai = this.SelecionaIndividuoTorneio(Constantes.ParticipantesTorneio);
+                //var mae = this.SelecionaIndividuoTorneio(Constantes.ParticipantesTorneio);
+
 
                 /// TODO: Considerar não repetir individuos
 
                 /// Crossover
-                var filhos = Recombinacao.DoisPontos(pai, mae, Constantes.TaxaRecombinacao);
+                var filhos = Recombinacao.UmPonto(pai, mae, Constantes.TaxaRecombinacao);
 
                 /// Mutacao
                 foreach (var f in filhos)
@@ -77,19 +80,6 @@ namespace F6.Entidades
             this.Pais.ForEach(p => retorno.Add(p.ConvertDatSource()));
 
             return retorno;
-        }
-
-        private void SelecionaSobreviventesElitismo()
-        {
-            var melhorPai = this.Pais.OrderByDescending(x => x.Aptidao()).Take(1).FirstOrDefault();
-
-            var selecionaFilhoParaMorrer = Constantes.Randomico.ProximoInt(this.TamanhoOriginal);
-
-            this.Filhos.RemoveAt(selecionaFilhoParaMorrer);
-
-            this.Pais = this.Filhos.ToList();
-
-            this.Pais.Add(melhorPai);
         }
 
         private void SelecionaSobreviventesElitismo(int n)
@@ -131,6 +121,33 @@ namespace F6.Entidades
             double total = this.Pais.Select(x => x.Aptidao()).Sum();
 
             return total;
+        }
+
+        private Individuo SelecionaIndividuoTorneio(int numeroParticipantes)
+        {
+            var numeroSorteados = new List<int>();
+            var listaCandidatos = new List<Individuo>();
+
+            while (numeroSorteados.Count < numeroParticipantes)
+            {
+                var sorteado = Constantes.Randomico.ProximoInt(this.TamanhoOriginal);
+
+                if (numeroSorteados.Contains(sorteado))
+                {
+                    continue;
+                }
+                else
+                {
+                    numeroSorteados.Add(sorteado);
+                }
+            }
+
+            foreach(var s in numeroSorteados)
+            {
+                listaCandidatos.Add(this.Pais.ElementAt(s));
+            }
+
+            return listaCandidatos.OrderByDescending(x => x.Aptidao()).Take(1).First();
         }
 
         private Individuo SelecionaProporcionalAptidao()

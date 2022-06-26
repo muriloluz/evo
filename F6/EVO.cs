@@ -24,7 +24,7 @@ namespace F6
 
         private EstrategiaAG estrategiaAG;
         private const int tamanhoPopulacaoAG = 100;
-        private const int qntGeracoesAG = 500;
+        private const int qntGeracoesAG = 2500;
         private const int qntExecucoes = 10;
 
         private bool plotarGraficos = false;
@@ -204,6 +204,7 @@ namespace F6
                 this.dataGridView2.DataSource = this.dataSourceExecucoes.ToList();
                 this.PreparanovaExecucao();
             }
+
         }
 
         private void IniciarAG()
@@ -247,6 +248,17 @@ namespace F6
 
                 this.PreparanovaExecucao();
             }
+
+            var detalhes = new List<DataSourceAptidoesAgrupadas>();
+
+            var agrupado = this.dataSourceExecucoes.GroupBy(x => x.Aptidao);
+
+            foreach(var i in agrupado)
+            {
+                detalhes.Add(new DataSourceAptidoesAgrupadas() { Aptidao = i.Key, QuantidadeIndividuos = i.Count() });
+            }
+
+            this.dataGridView3.DataSource = detalhes.ToList();
         }
 
         private bool AG()

@@ -14,12 +14,14 @@ namespace F6.Helpers
 
         public static int LimiteInferior = -100;
 
-        public static int TaxaMutacao = 9;
+        public static int TaxaMutacao = 5;
 
         public static int TaxaRecombinacao = 65;
 
         public static Randomico Randomico = new Randomico();
 
-        public static int SobreviventesElitismo = 15;
+        public static int SobreviventesElitismo = 4;
+
+        public static int ParticipantesTorneio = 2;
     }
 }

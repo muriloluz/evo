@@ -42,7 +42,13 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.idDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aptidaoDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.xDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.yDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSourceExecucoesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.aptidaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,19 +56,19 @@
             this.yDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataSourceIndividuoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.individuoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataSourceExecucoesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.idDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.aptidaoDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.xDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.yDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSourceAptidoesAgrupadasBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.quantidadeIndividuosDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.aptidaoDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSourceExecucoesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSourceIndividuoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.individuoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSourceExecucoesBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSourceAptidoesAgrupadasBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // grafico
@@ -191,6 +197,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.dataGridView3);
             this.tabPage2.Controls.Add(this.dataGridView2);
             this.tabPage2.Controls.Add(this.dataGridView1);
             this.tabPage2.Location = new System.Drawing.Point(4, 38);
@@ -200,6 +207,21 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Lista";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView3
+            // 
+            this.dataGridView3.AutoGenerateColumns = false;
+            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.quantidadeIndividuosDataGridViewTextBoxColumn,
+            this.aptidaoDataGridViewTextBoxColumn2});
+            this.dataGridView3.DataSource = this.dataSourceAptidoesAgrupadasBindingSource;
+            this.dataGridView3.Location = new System.Drawing.Point(1400, 752);
+            this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.RowHeadersWidth = 62;
+            this.dataGridView3.RowTemplate.Height = 33;
+            this.dataGridView3.Size = new System.Drawing.Size(815, 259);
+            this.dataGridView3.TabIndex = 2;
             // 
             // dataGridView2
             // 
@@ -217,6 +239,42 @@
             this.dataGridView2.RowTemplate.Height = 33;
             this.dataGridView2.Size = new System.Drawing.Size(815, 652);
             this.dataGridView2.TabIndex = 1;
+            // 
+            // idDataGridViewTextBoxColumn1
+            // 
+            this.idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn1.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn1.MinimumWidth = 8;
+            this.idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
+            this.idDataGridViewTextBoxColumn1.Width = 150;
+            // 
+            // aptidaoDataGridViewTextBoxColumn1
+            // 
+            this.aptidaoDataGridViewTextBoxColumn1.DataPropertyName = "Aptidao";
+            this.aptidaoDataGridViewTextBoxColumn1.HeaderText = "Aptidao";
+            this.aptidaoDataGridViewTextBoxColumn1.MinimumWidth = 8;
+            this.aptidaoDataGridViewTextBoxColumn1.Name = "aptidaoDataGridViewTextBoxColumn1";
+            this.aptidaoDataGridViewTextBoxColumn1.Width = 200;
+            // 
+            // xDataGridViewTextBoxColumn1
+            // 
+            this.xDataGridViewTextBoxColumn1.DataPropertyName = "X";
+            this.xDataGridViewTextBoxColumn1.HeaderText = "X";
+            this.xDataGridViewTextBoxColumn1.MinimumWidth = 8;
+            this.xDataGridViewTextBoxColumn1.Name = "xDataGridViewTextBoxColumn1";
+            this.xDataGridViewTextBoxColumn1.Width = 200;
+            // 
+            // yDataGridViewTextBoxColumn1
+            // 
+            this.yDataGridViewTextBoxColumn1.DataPropertyName = "Y";
+            this.yDataGridViewTextBoxColumn1.HeaderText = "Y";
+            this.yDataGridViewTextBoxColumn1.MinimumWidth = 8;
+            this.yDataGridViewTextBoxColumn1.Name = "yDataGridViewTextBoxColumn1";
+            this.yDataGridViewTextBoxColumn1.Width = 200;
+            // 
+            // dataSourceExecucoesBindingSource
+            // 
+            this.dataSourceExecucoesBindingSource.DataSource = typeof(F6.Entidades.DataSourceExecucoes);
             // 
             // dataGridView1
             // 
@@ -282,41 +340,25 @@
             // 
             this.individuoBindingSource.DataSource = typeof(F6.Entidades.Individuo);
             // 
-            // dataSourceExecucoesBindingSource
+            // dataSourceAptidoesAgrupadasBindingSource
             // 
-            this.dataSourceExecucoesBindingSource.DataSource = typeof(F6.Entidades.DataSourceExecucoes);
+            this.dataSourceAptidoesAgrupadasBindingSource.DataSource = typeof(F6.Entidades.DataSourceAptidoesAgrupadas);
             // 
-            // idDataGridViewTextBoxColumn1
+            // quantidadeIndividuosDataGridViewTextBoxColumn
             // 
-            this.idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn1.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn1.MinimumWidth = 8;
-            this.idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
-            this.idDataGridViewTextBoxColumn1.Width = 150;
+            this.quantidadeIndividuosDataGridViewTextBoxColumn.DataPropertyName = "QuantidadeIndividuos";
+            this.quantidadeIndividuosDataGridViewTextBoxColumn.HeaderText = "QuantidadeIndividuos";
+            this.quantidadeIndividuosDataGridViewTextBoxColumn.MinimumWidth = 8;
+            this.quantidadeIndividuosDataGridViewTextBoxColumn.Name = "quantidadeIndividuosDataGridViewTextBoxColumn";
+            this.quantidadeIndividuosDataGridViewTextBoxColumn.Width = 400;
             // 
-            // aptidaoDataGridViewTextBoxColumn1
+            // aptidaoDataGridViewTextBoxColumn2
             // 
-            this.aptidaoDataGridViewTextBoxColumn1.DataPropertyName = "Aptidao";
-            this.aptidaoDataGridViewTextBoxColumn1.HeaderText = "Aptidao";
-            this.aptidaoDataGridViewTextBoxColumn1.MinimumWidth = 8;
-            this.aptidaoDataGridViewTextBoxColumn1.Name = "aptidaoDataGridViewTextBoxColumn1";
-            this.aptidaoDataGridViewTextBoxColumn1.Width = 200;
-            // 
-            // xDataGridViewTextBoxColumn1
-            // 
-            this.xDataGridViewTextBoxColumn1.DataPropertyName = "X";
-            this.xDataGridViewTextBoxColumn1.HeaderText = "X";
-            this.xDataGridViewTextBoxColumn1.MinimumWidth = 8;
-            this.xDataGridViewTextBoxColumn1.Name = "xDataGridViewTextBoxColumn1";
-            this.xDataGridViewTextBoxColumn1.Width = 200;
-            // 
-            // yDataGridViewTextBoxColumn1
-            // 
-            this.yDataGridViewTextBoxColumn1.DataPropertyName = "Y";
-            this.yDataGridViewTextBoxColumn1.HeaderText = "Y";
-            this.yDataGridViewTextBoxColumn1.MinimumWidth = 8;
-            this.yDataGridViewTextBoxColumn1.Name = "yDataGridViewTextBoxColumn1";
-            this.yDataGridViewTextBoxColumn1.Width = 200;
+            this.aptidaoDataGridViewTextBoxColumn2.DataPropertyName = "Aptidao";
+            this.aptidaoDataGridViewTextBoxColumn2.HeaderText = "Aptidao";
+            this.aptidaoDataGridViewTextBoxColumn2.MinimumWidth = 8;
+            this.aptidaoDataGridViewTextBoxColumn2.Name = "aptidaoDataGridViewTextBoxColumn2";
+            this.aptidaoDataGridViewTextBoxColumn2.Width = 350;
             // 
             // EVO
             // 
@@ -337,11 +379,13 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSourceExecucoesBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSourceIndividuoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.individuoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSourceExecucoesBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSourceAptidoesAgrupadasBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -375,5 +419,9 @@
         private DataGridViewTextBoxColumn xDataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn yDataGridViewTextBoxColumn1;
         private BindingSource dataSourceExecucoesBindingSource;
+        private DataGridView dataGridView3;
+        private DataGridViewTextBoxColumn quantidadeIndividuosDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn aptidaoDataGridViewTextBoxColumn2;
+        private BindingSource dataSourceAptidoesAgrupadasBindingSource;
     }
 }
